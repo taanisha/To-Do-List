@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>To-Do List</title>
+    <style>
+        body {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+form {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+input, button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+button {
+    background-color: #3a9452;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #205e11;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align content to the left */
+    gap: 10px; /* Space between the circle and text */
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background-color: white;
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out; /* Set a specific width */
+    text-align: left; /* Ensures text is left-aligned */
+}
+
+li:hover {
+    background: #eef2f3;
+}
+
+.delete-btn {
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s ease-in-out;
+}
+
+.delete-btn:hover {
+    color: red;
+}
+
+     
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="content" placeholder="New Task" required>
+        <input type="text" name="description" placeholder="Description">
+        <input type="number" name="priority" placeholder="Priority" required>
+        <button type="submit">Add Task</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <a href="/delete/{{ task.id }}" class="delete-btn">○</a> <!-- Hollow Circle -->
+                <div class="task-content">
+                    <b>{{ task.content }}</b>  
+                    {% if task.description %} - <i>{{ task.description }}</i> {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
